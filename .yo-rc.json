@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.2",
+    "libraryName": "list-a-palooza",
+    "libraryId": "147d86db-8241-4e44-88a7-0cd6820c7b0f",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "list-a-palooza",
+    "solutionShortDescription": "list-a-palooza description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "list-a-palooza-client-side-solution",
+    "id": "147d86db-8241-4e44-88a7-0cd6820c7b0f",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.15.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "list-a-palooza description"
+      },
+      "longDescription": {
+        "default": "list-a-palooza description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "list-a-palooza Feature",
+        "description": "The feature that activates elements of the list-a-palooza solution.",
+        "id": "1d885f0f-1983-4ce5-96ae-512bab7527c5",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/list-a-palooza.sppkg"
+  }
+}

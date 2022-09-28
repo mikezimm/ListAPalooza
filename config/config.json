@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "list-a-palooza-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/listAPalooza/ListAPaloozaWebPart.js",
+          "manifest": "./src/webparts/listAPalooza/ListAPaloozaWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "ListAPaloozaWebPartStrings": "lib/webparts/listAPalooza/loc/{locale}.js"
+  }
+}
