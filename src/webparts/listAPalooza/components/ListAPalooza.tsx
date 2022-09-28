@@ -1,9 +1,35 @@
 import * as React from 'react';
 import styles from './ListAPalooza.module.scss';
-import { IListAPaloozaProps } from './IListAPaloozaProps';
+import { IListAPaloozaProps, IListAPaloozaState } from './IListAPaloozaProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 
-export default class ListAPalooza extends React.Component<IListAPaloozaProps, {}> {
+import { getSP } from "../pnpjsConfig";
+import { SPFI, spfi } from "@pnp/sp"; // eslint-disable-line  @typescript-eslint/no-unused-vars
+import { Logger, LogLevel } from "@pnp/logging";
+
+const siteUrl = '/sites/SharePointLists'; // eslint-disable-line  @typescript-eslint/no-unused-vars
+
+export default class ListAPalooza extends React.Component<IListAPaloozaProps, IListAPaloozaState> {
+  private LOG_SOURCE = "🅿PnPjsExample";
+  private _sp: SPFI; // eslint-disable-line  @typescript-eslint/no-unused-vars
+
+  constructor(props: IListAPaloozaProps) {
+    super(props);
+    // set initial state
+    this.state = {
+      items: [],
+    };
+    this._sp = getSP();
+  }
+
+  public async componentDidMount(): Promise<void> {
+    // read all file sizes from Documents library
+    await this._getRemoteLists();
+  }
+
+
+
+
   public render(): React.ReactElement<IListAPaloozaProps> {
     const {
       description,
@@ -40,4 +66,31 @@ export default class ListAPalooza extends React.Component<IListAPaloozaProps, {}
       </section>
     );
   }
+
+  // private _getRemoteLists = async (): Promise<void> => {  //Does not execute anything during 
+  private async _getRemoteLists(): Promise<void> {
+    console.log('Is this executing????');
+    try {
+
+
+      /**
+       * In the past, I would just use this:
+       * 
+       * try { 
+          thisWebInstance = Web(webURL);
+          allLists = await thisWebInstance.lists.select('*,HasUniqueRoleAssignments').get();
+       * 
+       * }
+       */
+      // get the default document library 'Documents'
+      const lists = await this.props.sp.web.lists.select('*')();
+      Logger.write(`${this.LOG_SOURCE} (getLists) `, LogLevel.Info);
+      console.log('lists', lists );
+
+      this.setState({ items: lists });
+    } catch (err) {
+      Logger.write(`${this.LOG_SOURCE} (getLists) - ${JSON.stringify(err)} - `, LogLevel.Error);
+    }
+  }
+
 }

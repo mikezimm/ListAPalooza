@@ -12,6 +12,9 @@ import * as strings from 'ListAPaloozaWebPartStrings';
 import ListAPalooza from './components/ListAPalooza';
 import { IListAPaloozaProps } from './components/IListAPaloozaProps';
 
+import { spfi, SPFI, SPFx } from "@pnp/sp";
+import { getSP } from './pnpjsConfig';
+
 export interface IListAPaloozaWebPartProps {
   description: string;
 }
@@ -20,6 +23,7 @@ export default class ListAPaloozaWebPart extends BaseClientSideWebPart<IListAPal
 
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
+  private sp: SPFI;
 
   public render(): void {
     const element: React.ReactElement<IListAPaloozaProps> = React.createElement(
@@ -29,17 +33,24 @@ export default class ListAPaloozaWebPart extends BaseClientSideWebPart<IListAPal
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+
+        sp: this.sp
       }
     );
 
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
+  protected async onInit(): Promise<void> {
     this._environmentMessage = this._getEnvironmentMessage();
 
-    return super.onInit();
+    await super.onInit();
+
+    //Initialize our _sp object that we can then use in other packages without having to pass around the context.
+    //  Check out pnpjsConfig.ts for an example of a project setup file.
+    getSP(this.context);
+
   }
 
   private _getEnvironmentMessage(): string {
